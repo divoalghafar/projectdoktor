@@ -19,3 +19,6 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', [DataController::class, 'index'])->name('dashboard');
+
+Route::get('/form', [DataController::class, 'form'])->name('form');
+Route::post('/form/save', [DataController::class, 'store'])->name('form.save');

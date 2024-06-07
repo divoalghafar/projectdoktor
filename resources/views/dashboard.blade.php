@@ -56,20 +56,20 @@
             <table class="table table-bordered">
                 <thead >
                     <tr>
-                        <th style="background-color: #012060; color: white">Tanggal Retur</th>
-                        <th style="background-color: #012060; color: white">Nama Barang</th>
-                        <th style="background-color: #012060; color: white">Jumlah</th>
-                        <th style="background-color: #012060; color: white">Penyebab</th>
-                        <th style="background-color: #012060; color: white">Status</th>
-                        <th style="background-color: #012060; color: white">Keterangan</th>
+                        <th style="background-color: #012060; color: white; text-align: center;">Tanggal Retur</th>
+                        <th style="background-color: #012060; color: white; text-align: center;">Nama Barang</th>
+                        <th style="background-color: #012060; color: white; text-align: center;">Jumlah</th>
+                        <th style="background-color: #012060; color: white; text-align: center;">Penyebab</th>
+                        <th style="background-color: #012060; color: white; text-align: center;">Status</th>
+                        <th style="background-color: #012060; color: white; text-align: center;">Keterangan</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($data as $item)
                         <tr>
-                            <td>{{ $item['Tanggal Retur']}}</td>
+                            <td style="text-align: center;">{{ $item['Tanggal Retur']}}</td>
                             <td>{{ $item['Nama Barang']}}</td>
-                            <td>{{ $item['Jumlah']}}</td>
+                            <td style="text-align: center;">{{ $item['Jumlah']}}</td>
                             <td>{{ $item['Penyebab']}}</td>
                             <td>{{ $item['Status']}}</td>
                             <td style="font-size: 12px; ">{{ $item['Keterangan']}}</td>
