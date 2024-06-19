@@ -262,4 +262,20 @@ class DataController extends Controller
         return response()->json(['success' => true, 'message' => 'Data berhasil terkirim!']);
     }
 
+    public function apiPengemasan()
+    {
+        $pengemasan = Pengemasan::all();
+        if($pengemasan) {
+            return response()->json([
+                'success' => true,
+                'data' => $pengemasan
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'data' => null
+            ]);
+        }
+    }
+
 }
