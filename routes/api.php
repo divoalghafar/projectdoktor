@@ -22,3 +22,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/data', [DataController::class, 'api']);
 Route::get('/marketing', [DataController::class, 'apiMarketing']);
 Route::get('/operasional', [DataController::class, 'apiOperasional']);
+Route::get('/aset', [DataController::class, 'apiAset']);

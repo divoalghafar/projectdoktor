@@ -62,7 +62,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="biayabulan" class="form-label">Biaya Bulan</label>
-                    <input type="number" class="form-control" id="biayabulan" name="biayabulan" placeholder="Masukkan Biaya Bulan">
+                    <input type="date" class="form-control" id="biayabulan" name="biayabulan" placeholder="Masukkan Biaya Bulan">
                 </div>
                 <div class="mb-3">
                     <label for="totalbiaya" class="form-label">Total Biaya</label>

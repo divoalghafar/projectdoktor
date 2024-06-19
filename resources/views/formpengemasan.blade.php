@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Input Operasional</title>
+    <title>Form Input Pengemasan</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -35,24 +35,33 @@
 <body>
     <div class="container mt-4">
         <div class="form-container">
-            <h2 class="form-title">Form Input Operasional</h2>
-            <form id="operasionalForm">
+            <h2 class="form-title">Form Input Pengemasan</h2>
+            <form id="pengemasanForm">
                 <div class="mb-3">
                     <label for="kategori" class="form-label">Kategori</label>
                     <select class="form-select border_kolom" placeholder="Pilih Kategori"
                         type="text" name="kategori" id="kategori">
                         <option value="" disabled selected class="bi bi-caret-down-fill ">Pilih Kategori</option>
-                        <option value="Pemeliharaan & Perawatan">Pemeliharaan & Perawatan</option>
-                        <option value="Booth">Booth</option>
-                        <option value="Ongkir">Ongkir</option>
-                        <option value="HR">HR</option>
-                        <option value="Biaya tak terduga">Biaya tak terduga</option>
                         <option value="General">General</option>
+                        <option value="Kategori">Kategori</option>
+                        <option value="Lakban">Lakban</option>
+                        <option value="Kardus">Kardus</option>
+                        <option value="Bubble Wrap">Bubble Wrap</option>
+                        <option value="Plastik Lain">Plastik Lain</option>
+                        <option value="Plastik Packing">Plastik Packing</option>
+                        <option value="Pouch">Pouch</option>
+                        <option value="Label Print">Label Print</option>
+                        <option value="Ongkir Ecommerce">Ongkir Ecommerce</option>
+                        <option value="Batrai">Batrai</option>
                     </select>
                 </div>
                 <div class="mb-3">
                     <label for="keterangan" class="form-label">Keterangan</label>
                     <input type="text" class="form-control" id="keterangan" name="keterangan" placeholder="Masukkan Keterangan">
+                </div>
+                <div class="mb-3">
+                    <label for="ecommerce" class="form-label">Ecommerce</label>
+                    <input type="text" class="form-control" id="ecommerce" name="ecommerce" placeholder="Masukkan Ecommerce">
                 </div>
                 <div class="mb-3">
                     <label for="biaya" class="form-label">Biaya</label>
@@ -75,8 +84,8 @@
                     <input type="number" class="form-control" id="totalbiaya" name="totalbiaya" placeholder="Masukkan Total Biaya">
                 </div>
                 <div class="mb-3">
-                    <label for="tanggaloperasional" class="form-label">Tanggal</label>
-                    <input type="date" class="form-control" id="tanggaloperasional" name="tanggaloperasional">
+                    <label for="tanggalpengemasan" class="form-label">Tanggal</label>
+                    <input type="date" class="form-control" id="tanggalpengemasan" name="tanggalpengemasan">
                 </div>
                 <div class="text-center">
                     <button type="submit" class="btn btn-success">Submit</button>
@@ -89,24 +98,25 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script>
        $(document).ready(function() {
-            $('#operasionalForm').on('submit', function(event) {
+            $('#pengemasanForm').on('submit', function(event) {
                 event.preventDefault();
 
-                var operasionalData = {
+                var pengemasanData = {
                     kategori: $('#kategori').val(),
                     keterangan: $('#keterangan').val(),
+                    ecommerce: $('#ecommerce').val(),
                     biaya: $('#biaya').val(),
                     qty: $('#qty').val(),
                     jumlah: $('#jumlah').val(),
                     biayabulan: $('#biayabulan').val(),
                     totalbiaya: $('#totalbiaya').val(),
-                    tanggaloperasional: $('#tanggaloperasional').val(),
+                    tanggalpengemasan: $('#tanggalpengemasan').val(),
                 };
 
                 $.ajax({
-                    url: '{{ route('form.operasional.save') }}',
+                    url: '{{ route('form.pengemasan.save') }}',
                     method: 'POST',
-                    data: operasionalData,
+                    data: pengemasanData,
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
@@ -114,7 +124,7 @@
                         if (response.success) {
                             toastr.success(response.message, 'Sukses');
 
-                            window.location.href = "{{ route('formoperasional') }}";
+                            window.location.href = "{{ route('formpengemasan') }}";
                         } else {
                             toastr.error('Terjadi kesalahan dalam mengirim data', 'Error');
                         }

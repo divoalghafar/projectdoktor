@@ -34,5 +34,15 @@ Route::get('/form/operasional', [DataController::class, 'formOperasional'])->nam
 Route::post('/form/operasional/save', [DataController::class, 'formOperasionalSave'])->name('form.operasional.save');
 Route::get('/dashboard/operasional', [DataController::class, 'dashboardOperasional'])->name('dashboardoperasional');
 
+// aset
+Route::get('/form/aset', [DataController::class, 'formAset'])->name('formaset');
+Route::post('/form/aset/save', [DataController::class, 'formAsetSave'])->name('form.aset.save');
+Route::get('/dashboard/aset', [DataController::class, 'dashboardAset'])->name('dashboardaset');
+
+// pengemasan
+Route::get('/form/pengemasan', [DataController::class, 'formPengemasan'])->name('formpengemasan');
+Route::post('/form/pengemasan/save', [DataController::class, 'formPengemasanSave'])->name('form.pengemasan.save');
+Route::get('/dashboard/pengemasan', [DataController::class, 'dashboardPengemasan'])->name('dashboardpengemasan');
+
 // home
 Route::get('/home', [DataController::class, 'home'])->name('home');

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMarketingTable extends Migration
+class CreateAsetTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,16 @@ class CreateMarketingTable extends Migration
      */
     public function up()
     {
-        Schema::create('marketing', function (Blueprint $table) {
+        Schema::create('aset', function (Blueprint $table) {
             $table->id();
             $table->string('kategori');
-            $table->string('kode');
             $table->string('keterangan');
             $table->integer('biaya');
+            $table->integer('qty');
+            $table->integer('jumlah');
             $table->date('biaya_bulan');
             $table->integer('total_biaya');
-            $table->date('tanggal_marketing');
+            $table->date('tanggal_aset');
             $table->timestamps();
         });
     }
@@ -33,6 +34,6 @@ class CreateMarketingTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('marketing');
+        Schema::dropIfExists('aset');
     }
 }

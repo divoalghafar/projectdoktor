@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Aset;
 use App\Models\DataModel;
 use App\Models\Marketing;
+use App\Models\Pengemasan;
 use App\Models\Operasional;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -85,7 +87,7 @@ class DataController extends Controller
             'kode' => 'required|string|max:255',
             'keterangan' => 'required|string|max:255',
             'biaya' => 'required|integer',
-            'biayabulan' => 'required|integer',
+            'biayabulan' => 'required|date',
             'totalbiaya' => 'required|integer',
             'tanggalmarketing' => 'required|date',
         ]);
@@ -136,7 +138,7 @@ class DataController extends Controller
             'biaya' => 'required|integer',
             'qty' => 'required|integer',
             'jumlah' => 'required|integer',
-            'biayabulan' => 'required|integer',
+            'biayabulan' => 'required|date',
             'totalbiaya' => 'required|integer',
             'tanggaloperasional' => 'required|date'
         ]);
@@ -171,4 +173,93 @@ class DataController extends Controller
             ]);
         }
     }
+
+    // Aset
+
+    public function formAset()
+    {
+        return view('formaset');
+    }
+
+    public function formAsetSave(Request $request)
+    {
+        $request->validate([
+            'kategori' => 'required|string|max:255',
+            'keterangan' => 'required|string|max:255',
+            'biaya' => 'required|integer',
+            'qty' => 'required|integer',
+            'jumlah' => 'required|integer',
+            'biayabulan' => 'required|date',
+            'totalbiaya' => 'required|integer',
+            'tanggalaset' => 'required|date'
+        ]);
+
+        // Simpan data ke model DataModel
+        Aset::create([
+            'kategori' => $request->kategori,
+            'keterangan' => $request->keterangan,
+            'biaya' => $request->biaya,
+            'qty' => $request->qty,
+            'jumlah' => $request->jumlah,
+            'biaya_bulan' => $request->biayabulan,
+            'total_biaya' => $request->totalbiaya,
+            'tanggal_aset' => $request->tanggalaset
+        ]);
+
+        return response()->json(['success' => true, 'message' => 'Data berhasil terkirim!']);
+    }
+
+    public function apiAset()
+    {
+        $aset = Aset::all();
+        if($aset) {
+            return response()->json([
+                'success' => true,
+                'data' => $aset
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'data' => null
+            ]);
+        }
+    }
+    
+    // Pengemasan
+
+    public function formPengemasan()
+    {
+        return view('formpengemasan');
+    }
+
+    public function formPengemasanSave(Request $request)
+    {
+        $request->validate([
+            'kategori' => 'required|string|max:255',
+            'keterangan' => 'required|string|max:255',
+            'ecommerce' => 'required|string|max:255',
+            'biaya' => 'required|integer',
+            'qty' => 'required|integer',
+            'jumlah' => 'required|integer',
+            'biayabulan' => 'required|date',
+            'totalbiaya' => 'required|integer',
+            'tanggalpengemasan' => 'required|date'
+        ]);
+
+        // Simpan data ke model DataModel
+        Pengemasan::create([
+            'kategori' => $request->kategori,
+            'keterangan' => $request->keterangan,
+            'ecommerce' => $request->ecommerce,
+            'biaya' => $request->biaya,
+            'qty' => $request->qty,
+            'jumlah' => $request->jumlah,
+            'biaya_bulan' => $request->biayabulan,
+            'total_biaya' => $request->totalbiaya,
+            'tanggal_pengemasan' => $request->tanggalpengemasan
+        ]);
+
+        return response()->json(['success' => true, 'message' => 'Data berhasil terkirim!']);
+    }
+
 }

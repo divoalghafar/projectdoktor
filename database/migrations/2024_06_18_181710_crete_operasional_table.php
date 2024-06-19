@@ -20,7 +20,7 @@ class CreteOperasionalTable extends Migration
             $table->integer('biaya');
             $table->integer('qty');
             $table->integer('jumlah');
-            $table->integer('biaya_bulan');
+            $table->date('biaya_bulan');
             $table->integer('total_biaya');
             $table->date('tanggal_operasional');
             $table->timestamps();

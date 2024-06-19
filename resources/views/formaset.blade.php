@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Input Operasional</title>
+    <title>Form Input Aset</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -35,19 +35,21 @@
 <body>
     <div class="container mt-4">
         <div class="form-container">
-            <h2 class="form-title">Form Input Operasional</h2>
-            <form id="operasionalForm">
+            <h2 class="form-title">Form Input Aset</h2>
+            <form id="asetForm">
                 <div class="mb-3">
                     <label for="kategori" class="form-label">Kategori</label>
                     <select class="form-select border_kolom" placeholder="Pilih Kategori"
                         type="text" name="kategori" id="kategori">
                         <option value="" disabled selected class="bi bi-caret-down-fill ">Pilih Kategori</option>
                         <option value="Pemeliharaan & Perawatan">Pemeliharaan & Perawatan</option>
-                        <option value="Booth">Booth</option>
-                        <option value="Ongkir">Ongkir</option>
-                        <option value="HR">HR</option>
-                        <option value="Biaya tak terduga">Biaya tak terduga</option>
+                        <option value="Pajangan">Pajangan</option>
+                        <option value="Alat elektronik">Alat elektronik</option>
                         <option value="General">General</option>
+                        <option value="Kategori">Kategori</option>
+                        <option value="Complementary">Complementary</option>
+                        <option value="Manekin">Manekin</option>
+                        <option value="Ongkir Produk">Ongkir Produk</option>
                     </select>
                 </div>
                 <div class="mb-3">
@@ -75,8 +77,8 @@
                     <input type="number" class="form-control" id="totalbiaya" name="totalbiaya" placeholder="Masukkan Total Biaya">
                 </div>
                 <div class="mb-3">
-                    <label for="tanggaloperasional" class="form-label">Tanggal</label>
-                    <input type="date" class="form-control" id="tanggaloperasional" name="tanggaloperasional">
+                    <label for="tanggalaset" class="form-label">Tanggal</label>
+                    <input type="date" class="form-control" id="tanggalaset" name="tanggalaset">
                 </div>
                 <div class="text-center">
                     <button type="submit" class="btn btn-success">Submit</button>
@@ -89,10 +91,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script>
        $(document).ready(function() {
-            $('#operasionalForm').on('submit', function(event) {
+            $('#asetForm').on('submit', function(event) {
                 event.preventDefault();
 
-                var operasionalData = {
+                var asetData = {
                     kategori: $('#kategori').val(),
                     keterangan: $('#keterangan').val(),
                     biaya: $('#biaya').val(),
@@ -100,13 +102,13 @@
                     jumlah: $('#jumlah').val(),
                     biayabulan: $('#biayabulan').val(),
                     totalbiaya: $('#totalbiaya').val(),
-                    tanggaloperasional: $('#tanggaloperasional').val(),
+                    tanggalaset: $('#tanggalaset').val(),
                 };
 
                 $.ajax({
-                    url: '{{ route('form.operasional.save') }}',
+                    url: '{{ route('form.aset.save') }}',
                     method: 'POST',
-                    data: operasionalData,
+                    data: asetData,
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
@@ -114,7 +116,7 @@
                         if (response.success) {
                             toastr.success(response.message, 'Sukses');
 
-                            window.location.href = "{{ route('formoperasional') }}";
+                            window.location.href = "{{ route('formaset') }}";
                         } else {
                             toastr.error('Terjadi kesalahan dalam mengirim data', 'Error');
                         }
