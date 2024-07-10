@@ -17,8 +17,6 @@ class Operasional extends Model
         'biaya',
         'qty',
         'jumlah',
-        'biaya_bulan',
-        'total_biaya',
         'tanggal_operasional',
     ];
 

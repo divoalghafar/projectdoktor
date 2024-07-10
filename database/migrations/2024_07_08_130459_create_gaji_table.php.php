@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreteOperasionalTable extends Migration
+class CreateGajiTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreteOperasionalTable extends Migration
      */
     public function up()
     {
-        Schema::create('operasional', function (Blueprint $table) {
+        Schema::create('gaji', function (Blueprint $table) {
             $table->id();
-            $table->string('kategori');
-            $table->string('keterangan');
+            $table->string('nama_karyawan');
             $table->string('biaya');
-            $table->integer('qty');
-            $table->string('jumlah');
-            $table->date('tanggal_operasional');
+            $table->date('tanggal_gaji');
             $table->timestamps();
         });
     }

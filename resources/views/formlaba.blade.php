@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Input Aset</title>
+    <title>Form Input Laba</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -35,42 +35,15 @@
 <body>
     <div class="container mt-4">
         <div class="form-container">
-            <h2 class="form-title">Form Input Aset</h2>
-            <form id="asetForm">
-                <div class="mb-3">
-                    <label for="kategori" class="form-label">Kategori</label>
-                    <select class="form-select border_kolom" placeholder="Pilih Kategori"
-                        type="text" name="kategori" id="kategori">
-                        <option value="" disabled selected class="bi bi-caret-down-fill ">Pilih Kategori</option>
-                        <option value="Pemeliharaan & Perawatan">Pemeliharaan & Perawatan</option>
-                        <option value="Pajangan">Pajangan</option>
-                        <option value="Alat elektronik">Alat elektronik</option>
-                        <option value="General">General</option>
-                        <option value="Kategori">Kategori</option>
-                        <option value="Complementary">Complementary</option>
-                        <option value="Manekin">Manekin</option>
-                        <option value="Ongkir Produk">Ongkir Produk</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label for="keterangan" class="form-label">Keterangan</label>
-                    <input type="text" class="form-control" id="keterangan" name="keterangan" placeholder="Masukkan Keterangan">
-                </div>
+            <h2 class="form-title">Form Input Laba</h2>
+            <form id="labaForm">
                 <div class="mb-3">
                     <label for="biaya" class="form-label">Biaya</label>
                     <input type="text" class="form-control" id="biaya" name="biaya" placeholder="Masukkan Biaya">
                 </div>
                 <div class="mb-3">
-                    <label for="qty" class="form-label">Qty</label>
-                    <input type="number" class="form-control" id="qty" name="qty" placeholder="Masukkan Qty">
-                </div>
-                <div class="mb-3">
-                    <label for="jumlah" class="form-label">Jumlah</label>
-                    <input type="text" class="form-control" id="jumlah" name="jumlah" placeholder="Masukkan Jumlah" readonly>
-                </div>
-                <div class="mb-3">
-                    <label for="tanggalaset" class="form-label">Tanggal</label>
-                    <input type="date" class="form-control" id="tanggalaset" name="tanggalaset">
+                    <label for="tanggallaba" class="form-label">Tanggal</label>
+                    <input type="date" class="form-control" id="tanggallaba" name="tanggallaba">
                 </div>
                 <div class="text-center">
                     <button type="submit" class="btn btn-success">Submit</button>
@@ -82,8 +55,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script>
-       $(document).ready(function() {
-        function formatRupiah(angka, prefix) {
+        $(document).ready(function() {
+            function formatRupiah(angka, prefix) {
                 var number_string = angka.replace(/[^,\d]/g, '').toString(),
                     split = number_string.split(','),
                     sisa = split[0].length % 3,
@@ -99,38 +72,22 @@
                 return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
             }
 
-            function calculateJumlah() {
-                var biaya = parseFloat($('#biaya').val().replace(/[^,\d]/g, '')) || 0;
-                var qty = parseFloat($('#qty').val()) || 0;
-                var jumlah = biaya * qty;
-                $('#jumlah').val(formatRupiah(jumlah.toString(), 'Rp. '));
-            }
-
             $('#biaya').on('input', function() {
                 $(this).val(formatRupiah($(this).val(), 'Rp. '));
-                calculateJumlah();
             });
 
-            $('#qty').on('input', function() {
-                calculateJumlah();
-            });
-
-            $('#asetForm').on('submit', function(event) {
+            $('#labaForm').on('submit', function(event) {
                 event.preventDefault();
 
-                var asetData = {
-                    kategori: $('#kategori').val(),
-                    keterangan: $('#keterangan').val(),
+                var omsetData = {
                     biaya: $('#biaya').val(),
-                    qty: $('#qty').val(),
-                    jumlah: $('#jumlah').val(),
-                    tanggalaset: $('#tanggalaset').val(),
+                    tanggallaba: $('#tanggallaba').val(),
                 };
 
                 $.ajax({
-                    url: '{{ route('form.aset.save') }}',
+                    url: '{{ route('form.laba.save') }}',
                     method: 'POST',
-                    data: asetData,
+                    data: omsetData,
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
@@ -138,7 +95,7 @@
                         if (response.success) {
                             toastr.success(response.message, 'Sukses');
 
-                            window.location.href = "{{ route('formaset') }}";
+                            window.location.href = "{{ route('formlaba') }}";
                         } else {
                             toastr.error('Terjadi kesalahan dalam mengirim data', 'Error');
                         }

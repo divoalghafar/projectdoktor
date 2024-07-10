@@ -24,3 +24,6 @@ Route::get('/marketing', [DataController::class, 'apiMarketing']);
 Route::get('/operasional', [DataController::class, 'apiOperasional']);
 Route::get('/aset', [DataController::class, 'apiAset']);
 Route::get('/pengemasan', [DataController::class, 'apiPengemasan']);
+Route::get('/gaji', [DataController::class, 'apiGaji']);
+Route::get('/omset', [DataController::class, 'apiOmset']);
+Route::get('/laba', [DataController::class, 'apiLaba']);

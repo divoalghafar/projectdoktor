@@ -58,15 +58,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="biaya" class="form-label">Biaya</label>
-                    <input type="number" class="form-control" id="biaya" name="biaya" placeholder="Masukkan Biaya">
-                </div>
-                <div class="mb-3">
-                    <label for="biayabulan" class="form-label">Biaya Bulan</label>
-                    <input type="date" class="form-control" id="biayabulan" name="biayabulan" placeholder="Masukkan Biaya Bulan">
-                </div>
-                <div class="mb-3">
-                    <label for="totalbiaya" class="form-label">Total Biaya</label>
-                    <input type="number" class="form-control" id="totalbiaya" name="totalbiaya" placeholder="Masukkan Total Biaya">
+                    <input type="text" class="form-control" id="biaya" name="biaya" placeholder="Masukkan Biaya">
                 </div>
                 <div class="mb-3">
                     <label for="tanggalmarketing" class="form-label">Tanggal</label>
@@ -83,6 +75,27 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script>
        $(document).ready(function() {
+            function formatRupiah(angka, prefix) {
+                var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                    split = number_string.split(','),
+                    sisa = split[0].length % 3,
+                    rupiah = split[0].substr(0, sisa),
+                    ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+                if (ribuan) {
+                    var separator = sisa ? '.' : '';
+                    rupiah += separator + ribuan.join('.');
+                }
+
+                rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+                return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+            }
+
+            $('#biaya').on('input', function() {
+                $(this).val(formatRupiah($(this).val(), 'Rp. '));
+                calculateJumlah();
+            });
+
             $('#marketingForm').on('submit', function(event) {
                 event.preventDefault();
 
@@ -91,8 +104,6 @@
                     kode: $('#kode').val(),
                     keterangan: $('#keterangan').val(),
                     biaya: $('#biaya').val(),
-                    biayabulan: $('#biayabulan').val(),
-                    totalbiaya: $('#totalbiaya').val(),
                     tanggalmarketing: $('#tanggalmarketing').val(),
                 };
 

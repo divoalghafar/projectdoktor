@@ -18,9 +18,7 @@ class CreateMarketingTable extends Migration
             $table->string('kategori');
             $table->string('kode');
             $table->string('keterangan');
-            $table->integer('biaya');
-            $table->date('biaya_bulan');
-            $table->integer('total_biaya');
+            $table->string('biaya');
             $table->date('tanggal_marketing');
             $table->timestamps();
         });

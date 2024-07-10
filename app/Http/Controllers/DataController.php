@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aset;
+use App\Models\Gaji;
+use App\Models\Laba;
+use App\Models\Omset;
 use App\Models\DataModel;
 use App\Models\Marketing;
 use App\Models\Pengemasan;
@@ -86,9 +89,7 @@ class DataController extends Controller
             'kategori' => 'required|string|max:255',
             'kode' => 'required|string|max:255',
             'keterangan' => 'required|string|max:255',
-            'biaya' => 'required|integer',
-            'biayabulan' => 'required|date',
-            'totalbiaya' => 'required|integer',
+            'biaya' => 'required|string|max:255',
             'tanggalmarketing' => 'required|date',
         ]);
 
@@ -98,8 +99,6 @@ class DataController extends Controller
             'kode' => $request->kode,
             'keterangan' => $request->keterangan,
             'biaya' => $request->biaya,
-            'biaya_bulan' => $request->biayabulan,
-            'total_biaya' => $request->totalbiaya,
             'tanggal_marketing' => $request->tanggalmarketing
         ]);
 
@@ -135,11 +134,9 @@ class DataController extends Controller
         $request->validate([
             'kategori' => 'required|string|max:255',
             'keterangan' => 'required|string|max:255',
-            'biaya' => 'required|integer',
+            'biaya' => 'required|string|max:255',
             'qty' => 'required|integer',
-            'jumlah' => 'required|integer',
-            'biayabulan' => 'required|date',
-            'totalbiaya' => 'required|integer',
+            'jumlah' => 'required|string|max:255',
             'tanggaloperasional' => 'required|date'
         ]);
 
@@ -150,8 +147,6 @@ class DataController extends Controller
             'biaya' => $request->biaya,
             'qty' => $request->qty,
             'jumlah' => $request->jumlah,
-            'biaya_bulan' => $request->biayabulan,
-            'total_biaya' => $request->totalbiaya,
             'tanggal_operasional' => $request->tanggaloperasional
         ]);
 
@@ -186,11 +181,9 @@ class DataController extends Controller
         $request->validate([
             'kategori' => 'required|string|max:255',
             'keterangan' => 'required|string|max:255',
-            'biaya' => 'required|integer',
+            'biaya' => 'required|string|max:255',
             'qty' => 'required|integer',
-            'jumlah' => 'required|integer',
-            'biayabulan' => 'required|date',
-            'totalbiaya' => 'required|integer',
+            'jumlah' => 'required|string|max:255',
             'tanggalaset' => 'required|date'
         ]);
 
@@ -201,8 +194,6 @@ class DataController extends Controller
             'biaya' => $request->biaya,
             'qty' => $request->qty,
             'jumlah' => $request->jumlah,
-            'biaya_bulan' => $request->biayabulan,
-            'total_biaya' => $request->totalbiaya,
             'tanggal_aset' => $request->tanggalaset
         ]);
 
@@ -238,11 +229,9 @@ class DataController extends Controller
             'kategori' => 'required|string|max:255',
             'keterangan' => 'required|string|max:255',
             'ecommerce' => 'required|string|max:255',
-            'biaya' => 'required|integer',
+            'biaya' => 'required|string|max:255',
             'qty' => 'required|integer',
-            'jumlah' => 'required|integer',
-            'biayabulan' => 'required|date',
-            'totalbiaya' => 'required|integer',
+            'jumlah' => 'required|string|max:255',
             'tanggalpengemasan' => 'required|date'
         ]);
 
@@ -254,8 +243,6 @@ class DataController extends Controller
             'biaya' => $request->biaya,
             'qty' => $request->qty,
             'jumlah' => $request->jumlah,
-            'biaya_bulan' => $request->biayabulan,
-            'total_biaya' => $request->totalbiaya,
             'tanggal_pengemasan' => $request->tanggalpengemasan
         ]);
 
@@ -269,6 +256,139 @@ class DataController extends Controller
             return response()->json([
                 'success' => true,
                 'data' => $pengemasan
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'data' => null
+            ]);
+        }
+    }
+
+    // Finance
+
+    public function dashboardFinance()
+    {
+        return view('dashboardfinance');
+    }
+
+    // Gaji
+
+    public function formGaji()
+    {
+        return view('formgaji');
+    }
+
+    public function formGajiSave(Request $request)
+    {
+        $request->validate([
+            'namakaryawan' => 'required|string|max:255',
+            'biaya' => 'required|string|max:255',
+            'tanggalgaji' => 'required|date'
+        ]);
+
+        // Simpan data ke model DataModel
+        Gaji::create([
+            'nama_karyawan' => $request->namakaryawan,
+            'biaya' => $request->biaya,
+            'tanggal_gaji' => $request->tanggalgaji
+        ]);
+
+        return response()->json(['success' => true, 'message' => 'Data berhasil terkirim!']);
+    }
+
+    public function apiGaji()
+    {
+        $gaji = Gaji::all();
+        if($gaji) {
+            return response()->json([
+                'success' => true,
+                'data' => $gaji
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'data' => null
+            ]);
+        }
+    }
+
+    // Laporan Akhir
+
+    public function laporanAkhir()
+    {
+        return view('laporanakhir');
+    }
+
+    // Omset
+
+    public function formOmset()
+    {
+        return view('formomset');
+    }
+
+    public function formOmsetSave(Request $request)
+    {
+        $request->validate([
+            'biaya' => 'required|string|max:255',
+            'tanggalomset' => 'required|date'
+        ]);
+
+        // Simpan data ke model DataModel
+        Omset::create([
+            'biaya' => $request->biaya,
+            'tanggal_omset' => $request->tanggalomset
+        ]);
+
+        return response()->json(['success' => true, 'message' => 'Data berhasil terkirim!']);
+    }
+
+    public function apiOmset()
+    {
+        $omset = Omset::all();
+        if($omset) {
+            return response()->json([
+                'success' => true,
+                'data' => $omset
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'data' => null
+            ]);
+        }
+    }
+
+    // Laba
+
+    public function formLaba()
+    {
+        return view('formlaba');
+    }
+
+    public function formLabaSave(Request $request)
+    {
+        $request->validate([
+            'biaya' => 'required|string|max:255',
+            'tanggallaba' => 'required|date'
+        ]);
+
+        // Simpan data ke model DataModel
+        Laba::create([
+            'biaya' => $request->biaya,
+            'tanggal_laba' => $request->tanggallaba
+        ]);
+
+        return response()->json(['success' => true, 'message' => 'Data berhasil terkirim!']);
+    }
+
+    public function apiLaba()
+    {
+        $laba = Laba::all();
+        if($laba) {
+            return response()->json([
+                'success' => true,
+                'data' => $laba
             ]);
         } else {
             return response()->json([

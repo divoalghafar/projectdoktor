@@ -16,8 +16,6 @@ class Marketing extends Model
         'kode',
         'keterangan',
         'biaya',
-        'biaya_bulan',
-        'total_biaya',
         'tanggal_marketing',
     ];
 }

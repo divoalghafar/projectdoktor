@@ -44,5 +44,23 @@ Route::get('/form/pengemasan', [DataController::class, 'formPengemasan'])->name(
 Route::post('/form/pengemasan/save', [DataController::class, 'formPengemasanSave'])->name('form.pengemasan.save');
 Route::get('/dashboard/pengemasan', [DataController::class, 'dashboardPengemasan'])->name('dashboardpengemasan');
 
+// gaji 
+Route::get('/form/gaji', [DataController::class, 'formGaji'])->name('formgaji');
+Route::post('/form/gaji/save', [DataController::class, 'formGajiSave'])->name('form.gaji.save');
+
+// laporan akhir
+Route::get('laporanakhir', [DataController::class, 'laporanAkhir'])->name('laporanakhir');
+
+// finance 
+Route::get('dashboard/finance', [DataController::class, 'dashboardFinance'])->name('dashboardfinance');
+
+// omset 
+Route::get('form/omset', [DataController::class, 'formOmset'])->name('formomset');
+Route::post('form/omset/save', [DataController::class, 'formOmsetSave'])->name('form.omset.save');
+
+// laba
+Route::get('form/laba', [DataController::class, 'formLaba'])->name('formlaba');
+Route::post('form/laba/save', [DataController::class, 'formLabaSave'])->name('form.laba.save');
+
 // home
 Route::get('/home', [DataController::class, 'home'])->name('home');

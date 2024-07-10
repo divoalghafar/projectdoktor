@@ -17,8 +17,6 @@ class Aset extends Model
         'biaya',
         'qty',
         'jumlah',
-        'biaya_bulan',
-        'total_biaya',
         'tanggal_aset',
 
     ];

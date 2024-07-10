@@ -65,7 +65,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="biaya" class="form-label">Biaya</label>
-                    <input type="number" class="form-control" id="biaya" name="biaya" placeholder="Masukkan Biaya">
+                    <input type="text" class="form-control" id="biaya" name="biaya" placeholder="Masukkan Biaya">
                 </div>
                 <div class="mb-3">
                     <label for="qty" class="form-label">Qty</label>
@@ -73,15 +73,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="jumlah" class="form-label">Jumlah</label>
-                    <input type="number" class="form-control" id="jumlah" name="jumlah" placeholder="Masukkan Jumlah">
-                </div>
-                <div class="mb-3">
-                    <label for="biayabulan" class="form-label">Biaya Bulan</label>
-                    <input type="date" class="form-control" id="biayabulan" name="biayabulan" placeholder="Masukkan Biaya Bulan">
-                </div>
-                <div class="mb-3">
-                    <label for="totalbiaya" class="form-label">Total Biaya</label>
-                    <input type="number" class="form-control" id="totalbiaya" name="totalbiaya" placeholder="Masukkan Total Biaya">
+                    <input type="text" class="form-control" id="jumlah" name="jumlah" placeholder="Masukkan Jumlah" readonly>
                 </div>
                 <div class="mb-3">
                     <label for="tanggalpengemasan" class="form-label">Tanggal</label>
@@ -98,6 +90,38 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script>
        $(document).ready(function() {
+            function formatRupiah(angka, prefix) {
+                var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                    split = number_string.split(','),
+                    sisa = split[0].length % 3,
+                    rupiah = split[0].substr(0, sisa),
+                    ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+                if (ribuan) {
+                    var separator = sisa ? '.' : '';
+                    rupiah += separator + ribuan.join('.');
+                }
+
+                rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+                return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+            }
+
+            function calculateJumlah() {
+                var biaya = parseFloat($('#biaya').val().replace(/[^,\d]/g, '')) || 0;
+                var qty = parseFloat($('#qty').val()) || 0;
+                var jumlah = biaya * qty;
+                $('#jumlah').val(formatRupiah(jumlah.toString(), 'Rp. '));
+            }
+
+            $('#biaya').on('input', function() {
+                $(this).val(formatRupiah($(this).val(), 'Rp. '));
+                calculateJumlah();
+            });
+
+            $('#qty').on('input', function() {
+                calculateJumlah();
+            });
+
             $('#pengemasanForm').on('submit', function(event) {
                 event.preventDefault();
 
@@ -108,8 +132,6 @@
                     biaya: $('#biaya').val(),
                     qty: $('#qty').val(),
                     jumlah: $('#jumlah').val(),
-                    biayabulan: $('#biayabulan').val(),
-                    totalbiaya: $('#totalbiaya').val(),
                     tanggalpengemasan: $('#tanggalpengemasan').val(),
                 };
 

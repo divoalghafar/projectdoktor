@@ -18,11 +18,9 @@ class CreatePengemasanTable extends Migration
             $table->string('kategori');
             $table->string('keterangan');
             $table->string('ecommerce');
-            $table->integer('biaya');
+            $table->string('biaya');
             $table->integer('qty');
-            $table->integer('jumlah');
-            $table->date('biaya_bulan');
-            $table->integer('total_biaya');
+            $table->string('jumlah');
             $table->date('tanggal_pengemasan');
             $table->timestamps();
         });

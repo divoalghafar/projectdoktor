@@ -17,11 +17,9 @@ class CreateAsetTable extends Migration
             $table->id();
             $table->string('kategori');
             $table->string('keterangan');
-            $table->integer('biaya');
+            $table->string('biaya');
             $table->integer('qty');
-            $table->integer('jumlah');
-            $table->date('biaya_bulan');
-            $table->integer('total_biaya');
+            $table->string('jumlah');
             $table->date('tanggal_aset');
             $table->timestamps();
         });
